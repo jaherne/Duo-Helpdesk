@@ -43,7 +43,9 @@ def my_form_post():
     	preauth = auth_api.preauth(username=uname)
     except:
     	return("Username " + uname + " wasn't found")
-    if preauth["result"] != "auth":
+    if preauth["result"] == "enroll":
+        return("User " + uname + " not enrolled in Duo")
+    elif preauth["result"] != "auth":
     	return(preauth["status_msg"])
     result = auth_api.auth(username=uname,factor="push",device="auto")
     return render_template('result.html', result=result)
