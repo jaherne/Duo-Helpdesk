@@ -1,13 +1,25 @@
 import os
 import duo_client
+import ConfigParser
 from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
-auth_api=duo_client.Auth(
-	ikey="",
-	skey="",
-	host="",
+def grab_keys(filename='duo.conf'):
+    config = ConfigParser.RawConfigParser()
+    config.read(filename)
+
+    ikey = config.get('duo', 'ikey')
+    skey = config.get('duo', 'skey')
+    host = config.get('duo', 'host')
+    return {'ikey': ikey, 'skey': skey, 'host': host}
+
+duo_keys = grab_keys()
+
+auth_api = duo_client.Auth(
+    ikey=duo_keys['ikey'],
+    skey=duo_keys['skey'],
+    host=duo_keys['host'],
 )
 
 @app.route('/')
