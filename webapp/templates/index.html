@@ -1,9 +1,35 @@
-<title>Hello</title>
-<h1>HelpDesk</h1>
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Hello</title>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		<script type=text/javascript>
+			$(function() {
+				console.log("In function")
+			    $("#submit").click(function() {
+			    	event.preventDefault();
+			        $.ajax({
+			            url: '/auth',
+			            data: $('form').serialize(),
+			            type: 'POST',
+			            success: function(response) {
+			                console.log(response);
+			            },
+			            error: function(error) {
+			                console.log(error);
+			            }
+			        });
+			    });
+			});
+		</script>
+	</head>
+	<body>
+		<h1>HelpDesk</h1>
 
-<p>Type name of user you would like to authenticate: </p>
-<form method="POST">
-	<input name="text">
-	<input type="submit">
-</form>
-
+		<p>Type name of user you would like to authenticate: </p>
+		<form action="/auth" method="POST">
+			<input name="text">
+			<input type="submit" id="submit">
+		</form>
+	</body>
+</html>

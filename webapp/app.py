@@ -36,8 +36,8 @@ def home():
 		
 	return render_template('index.html')
 
-@app.route('/', methods=['POST'])
-def my_form_post():
+@app.route('/auth', methods=['POST'])
+def auth():
     uname = request.form['text']
     try: 
     	preauth = auth_api.preauth(username=uname)
@@ -48,8 +48,8 @@ def my_form_post():
     elif preauth["result"] != "auth":
     	return(preauth["status_msg"])
     result = auth_api.auth(username=uname,factor="push",device="auto")
-    return render_template('result.html', result=result)
-    #result["status"])
+    #return render_template('result.html', result=result)
+    return result["status_msg"]
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
