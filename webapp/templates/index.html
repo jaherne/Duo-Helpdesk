@@ -14,7 +14,17 @@
 			            type: 'POST',
 			            success: function(response) {
 			                console.log(response);
-			            },
+			                //$("#result").empty();
+			                var table = document.getElementById("result");
+
+							var tr = document.createElement("tr");
+							var td = document.createElement("td");
+							var txt = document.createTextNode(response);
+
+							td.appendChild(txt);
+							tr.appendChild(td);
+							table.appendChild(tr);
+										            },
 			            error: function(error) {
 			                console.log(error);
 			            }
@@ -31,5 +41,14 @@
 			<input name="text">
 			<input type="submit" id="submit">
 		</form>
+		<div>
+			<table id="result">
+				<tr>
+					<th>Device</th>
+					<th>Methods</th>
+					<th>Status</th>
+				</tr>
+			</table>
+		</div>
 	</body>
 </html>

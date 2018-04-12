@@ -47,9 +47,9 @@ def auth():
         return("User " + uname + " not enrolled in Duo")
     elif preauth["result"] != "auth":
     	return(preauth["status_msg"])
-    result = auth_api.auth(username=uname,factor="push",device="auto")
-    #return render_template('result.html', result=result)
-    return result["status_msg"]
+    return preauth["devices"][0]["display_name"]
+    #result = auth_api.auth(username=uname,factor="push",device="auto")
+    #return result["status_msg"]
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
