@@ -3,51 +3,27 @@
 	<head>
 		<title>Hello</title>
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-		<script type=text/javascript>
-			$(function() {
-				console.log("In function")
-			    $("#submit").click(function() {
-			    	event.preventDefault();
-			        $.ajax({
-			            url: '/auth',
-			            data: $('form').serialize(),
-			            type: 'POST',
-			            success: function(response) {
-			                console.log(response);
-			                //$("#result").empty();
-			                var table = document.getElementById("result");
-
-							var tr = document.createElement("tr");
-							var td = document.createElement("td");
-							var txt = document.createTextNode(response);
-
-							td.appendChild(txt);
-							tr.appendChild(td);
-							table.appendChild(tr);
-										            },
-			            error: function(error) {
-			                console.log(error);
-			            }
-			        });
-			    });
-			});
-		</script>
+		<script src="static/main.js" type=text/javascript></script>
 	</head>
 	<body>
 		<h1>HelpDesk</h1>
 
 		<p>Type name of user you would like to authenticate: </p>
-		<form action="/auth" method="POST">
+		<form action="/preauth" method="POST">
 			<input name="text">
 			<input type="submit" id="submit">
 		</form>
 		<div>
-			<table id="result">
-				<tr>
-					<th>Device</th>
-					<th>Methods</th>
-					<th>Status</th>
-				</tr>
+			<table>
+				<thead>
+					<tr>
+						<th>Device</th>
+						<th>Methods</th>
+						<th>Status</th>
+					</tr>
+				</thead>
+				<tbody id="result">
+				</tbody>
 			</table>
 		</div>
 	</body>

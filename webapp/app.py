@@ -36,13 +36,13 @@ def home():
 		
 	return render_template('index.html')
 
-@app.route('/auth', methods=['POST'])
-def auth():
+@app.route('/preauth', methods=['POST'])
+def preauth():
     uname = request.form['text']
     try: 
     	preauth = auth_api.preauth(username=uname)
     except:
-    	return("Username " + uname + " wasn't found")
+    	return("Username wasn't found")
     if preauth["result"] == "enroll":
         return("User " + uname + " not enrolled in Duo")
     elif preauth["result"] != "auth":
@@ -50,6 +50,13 @@ def auth():
     return preauth["devices"][0]["display_name"]
     #result = auth_api.auth(username=uname,factor="push",device="auto")
     #return result["status_msg"]
+
+@app.route('/auth', methods=['GET'])
+def auth():
+    method = request.args["method"]
+    uname = request.args["uname"]
+    result = auth_api.auth(username=uname,factor="push",device=method)
+    return result["status_msg"]
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
