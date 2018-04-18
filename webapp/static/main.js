@@ -8,8 +8,22 @@ $(function() {
             type: 'POST',
             success: function(response) {
                 console.log(response);
+
+                var index;
+
+                for (index=0; index < response.length; index++) {
+                	var name = response[index].display_name;
+                	var methods = response[index].capabilities;
+                	var method; 
+                	var uname = $('form');
+
+                	for (method=0; method < methods.length; method++) {
+                		console.log(methods[method]);
+                	}
+                	
+                }
                 //$("#result").empty();
-                var table = document.getElementById("result");
+                /*var result = document.getElementById("result");
 
 				var tr = document.createElement("tr");
 				var td = document.createElement("td");
@@ -25,7 +39,8 @@ $(function() {
 				td1.appendChild(a);
 				tr.appendChild(td);
 				tr.appendChild(td1);
-				table.appendChild(tr);
+				result.appendChild(tr);
+				$('.table').show();*/
 							            },
             error: function(error) {
                 console.log(error);

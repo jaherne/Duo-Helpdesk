@@ -1,7 +1,7 @@
 import os
 import duo_client
 import ConfigParser
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 
 app = Flask(__name__)
 
@@ -47,7 +47,7 @@ def preauth():
         return("User " + uname + " not enrolled in Duo")
     elif preauth["result"] != "auth":
     	return(preauth["status_msg"])
-    return preauth["devices"][0]["display_name"]
+    return jsonify(preauth[devices])
     #result = auth_api.auth(username=uname,factor="push",device="auto")
     #return result["status_msg"]
 
