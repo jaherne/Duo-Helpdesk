@@ -47,7 +47,7 @@ def preauth():
         return("User " + uname + " not enrolled in Duo")
     elif preauth["result"] != "auth":
     	return(preauth["status_msg"])
-    return jsonify(preauth[devices])
+    return jsonify(preauth["devices"])
     #result = auth_api.auth(username=uname,factor="push",device="auto")
     #return result["status_msg"]
 
@@ -55,8 +55,9 @@ def preauth():
 def auth():
     method = request.args["method"]
     uname = request.args["uname"]
-    result = auth_api.auth(username=uname,factor="push",device=method)
-    return result["status_msg"]
+    device = request.args["device"]
+    result = auth_api.auth(username=uname,factor=method,device=device)
+    return jsonify(result)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
